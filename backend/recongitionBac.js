@@ -8,11 +8,11 @@ async function Recogn(img){
     var buffer = new Buffer(matches[2], 'base64');
     var savePath = path.resolve('image_test.png');
     fs.writeFileSync(savePath, buffer);
-
+    console.log(img)
     const __dirname = path.resolve(path.dirname(''));
-    const processsp = await spawn('python3',[__dirname +'/Reco.py'] )
+    const processsp = await spawn('python3',[__dirname +'/Reco.py',img] )
     processsp.stdout.on('data', (data) => {
-        // console.log(data.toString())
+        console.log(data.toString())
         return data.toString();
     });
 }

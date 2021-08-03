@@ -40,8 +40,8 @@ const Recogn = () => {
       }
       canvaRef.current.innerHTML = faceapi.createCanvasFromMedia(videoRef.current)
       const displaySize ={
-        width : "720",
-        height :"560"
+        width : "450",
+        height :"450"
       }
       faceapi.matchDimensions(canvaRef.current,displaySize)
       const detections = await faceapi.detectAllFaces(videoRef.current, new faceapi.TinyFaceDetectorOptions())
@@ -49,8 +49,10 @@ const Recogn = () => {
       if(detections.length!==0){
       var ctx =canvaRef.current.getContext('2d')
       ctx.drawImage(videoRef.current, 0, 0, displaySize.width, displaySize.height);
-      var dataURI = canvaRef.current.toDataURL('image/png').replace("image/png", "image/octet-stream");;
-      axios.post(url, {data:dataURI} )
+      var dataURI = canvaRef.current.toDataURL("image/jpeg",0.981);
+      var output=dataURI.replace(/^data:image\/(png|jpg|jpeg);base64,/, "");
+      console.log(output.length)
+      axios.post(url, {data:output} )
       .then((response)=> {
         console.log(response.data);
       });

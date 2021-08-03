@@ -1,6 +1,9 @@
 import face_recognition
 import sys
-known_image = face_recognition.load_image_file("/home/oussama/Desktop/FaceRecJs/backend/image_test.png")
+import io,base64
+
+image=sys.argv[1]
+known_image = face_recognition.load_image_file(io.BytesIO(base64.b64decode(image)))
 unknown_image = face_recognition.load_image_file("/home/oussama/Desktop/FaceRecJs/backend/images/Oussama/1.jpg")
 
 
